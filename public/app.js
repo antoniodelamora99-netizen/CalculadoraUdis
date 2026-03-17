@@ -288,39 +288,69 @@ document.addEventListener('DOMContentLoaded', () => {
         const doc = new jsPDF({ orientation:'landscape', unit:'mm', format:'a4' });
         const D = LAST_TABLE_DATA, S = D.summary;
 
-        doc.setFillColor(7,13,26); doc.rect(0,0,297,36,'F');
-        doc.setTextColor(240,244,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
-        doc.text('Calculadora de UDIS', 14, 14);
-        doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(98,120,160);
-        doc.text(`calculadoraudis.com  |  Banxico ${UDI_FECHA}: $${fmtMXN(UDI_VALOR,6)}  |  ${new Date().toLocaleDateString('es-MX')}`, 14, 22);
-        doc.text(`Inflación: ${S.inflacion}%  |  Plazo: ${S.anios} años`, 14, 30);
+        // Fondo blanco total
+        doc.setFillColor(255,255,255); doc.rect(0,0,297,210,'F');
 
+        // Header: banda azul oscuro con texto blanco
+        doc.setFillColor(15,30,68); doc.rect(0,0,297,32,'F');
+        doc.setTextColor(255,255,255); doc.setFontSize(17); doc.setFont('helvetica','bold');
+        doc.text('Calculadora de UDIS', 14, 13);
+        doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(190,210,255);
+        doc.text(`calculadoraudis.com  |  Banxico ${UDI_FECHA}: $${fmtMXN(UDI_VALOR,6)}  |  ${new Date().toLocaleDateString('es-MX')}`, 14, 21);
+        doc.text(`Inflación: ${S.inflacion}%  |  Plazo: ${S.anios} años`, 14, 28);
+
+        // KPI cards sobre fondo claro con texto oscuro
         const cards = [
-            ['VALOR FUTURO TOTAL',`$${fmtMXN(S.vfFinal)}`],
-            ['TOTAL APORTADO (VP)',`$${fmtMXN(S.totalVP)}`],
-            ['UDIS ACUMULADAS', fmtNum(S.udisTotal,2)],
-            ['RENDIMIENTO NOMINAL',`${fmtNum(S.rendimiento,1)}%`],
+            ['VALOR FUTURO TOTAL',  `$${fmtMXN(S.vfFinal)}`,      [15,80,200]],
+            ['TOTAL APORTADO (VP)', `$${fmtMXN(S.totalVP)}`,      [30,30,30]],
+            ['UDIS ACUMULADAS',     fmtNum(S.udisTotal,2),         [30,30,30]],
+            ['RENDIMIENTO NOMINAL', `${fmtNum(S.rendimiento,1)}%`, [16,140,80]],
         ];
         let cx = 14;
-        cards.forEach(([label, val]) => {
-            doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(98,120,160);
-            doc.text(label, cx, 47);
-            doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(240,244,255);
-            doc.text(val, cx, 56); cx += 72;
+        cards.forEach(([label, val, color]) => {
+            doc.setFillColor(237,242,252); doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+            doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(80,100,140);
+            doc.text(label, cx+3, 41.5);
+            doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(...color);
+            doc.text(val, cx+3, 50);
+            cx += 70;
         });
 
+        // Tabla con tema claro de alto contraste
         doc.autoTable({
-            head:[D.headers], body:D.rows, startY:66, theme:'grid',
-            headStyles:{ fillColor:[13,22,48], textColor:[168,184,216], fontStyle:'bold', fontSize:7 },
-            bodyStyles:{ fillColor:[7,13,26], textColor:[168,184,216], fontSize:7.5 },
-            alternateRowStyles:{ fillColor:[12,20,40] },
-            columnStyles:{ 0:{ halign:'left', textColor:[240,244,255], fontStyle:'bold' } },
-            margin:{ left:14, right:14 },
+            head: [D.headers],
+            body: D.rows,
+            startY: 59,
+            theme: 'grid',
+            headStyles: {
+                fillColor: [15,30,68],
+                textColor: [255,255,255],
+                fontStyle: 'bold',
+                fontSize: 7.5,
+            },
+            bodyStyles: {
+                fillColor: [255,255,255],
+                textColor: [25,25,25],
+                fontSize: 7.5,
+            },
+            alternateRowStyles: {
+                fillColor: [245,248,255],
+            },
+            columnStyles: {
+                0: { halign:'center', textColor:[15,30,68], fontStyle:'bold' },
+                7: { textColor:[15,80,200], fontStyle:'bold' },
+            },
+            styles: {
+                lineColor: [200,210,230],
+                lineWidth: 0.2,
+            },
+            margin: { left:14, right:14 },
         });
+
         const fy = doc.lastAutoTable.finalY + 6;
-        doc.setFontSize(7); doc.setTextColor(98,120,160);
+        doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(110,120,140);
         doc.text('Estimaciones con fines informativos. No constituyen asesoría financiera formal.', 14, fy);
-        doc.setTextColor(139,92,246);
+        doc.setTextColor(15,80,200);
         doc.textWithLink('Sistema para asesores y promotorias: crm-gamo.vercel.app', 14, fy+5, { url:'https://crm-gamo.vercel.app' });
         doc.save(`proyeccion-udis-${new Date().toISOString().split('T')[0]}.pdf`);
     });
