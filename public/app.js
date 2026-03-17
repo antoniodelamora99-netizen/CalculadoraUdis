@@ -299,23 +299,27 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.text(`calculadoraudis.com  |  Banxico ${UDI_FECHA}: $${fmtMXN(UDI_VALOR,6)}  |  ${new Date().toLocaleDateString('es-MX')}`, 14, 21);
         doc.text(`Inflación: ${S.inflacion}%  |  Plazo: ${S.anios} años`, 14, 28);
 
-        // KPI cards sobre fondo claro con texto oscuro
-        const cards = [
-            ['VALOR FUTURO TOTAL',  `$${fmtMXN(S.vfFinal)}`,      [10,60,180]],
-            ['TOTAL APORTADO (VP)', `$${fmtMXN(S.totalVP)}`,      [20,20,20]],
-            ['UDIS ACUMULADAS',     fmtNum(S.udisTotal,2),         [20,20,20]],
-            ['RENDIMIENTO NOMINAL', `${fmtNum(S.rendimiento,1)}%`, [10,120,60]],
+        // KPI cards — colores explícitos para máxima compatibilidad con jsPDF
+        const kpiCards = [
+            { label:'VALOR FUTURO TOTAL',  val:`$${fmtMXN(S.vfFinal)}` },
+            { label:'TOTAL APORTADO (VP)', val:`$${fmtMXN(S.totalVP)}` },
+            { label:'UDIS ACUMULADAS',     val:fmtNum(S.udisTotal,2) },
+            { label:'RENDIMIENTO NOMINAL', val:`${fmtNum(S.rendimiento,1)}%` },
         ];
         let cx = 14;
-        cards.forEach(([label, val, color]) => {
-            doc.setFillColor(220,230,248); doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
-            doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(30,40,70);
-            doc.text(label, cx+3, 41.5);
-            doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(...color);
-            doc.text(val, cx+3, 50);
+        kpiCards.forEach(({ label, val }) => {
+            doc.setFillColor(210, 225, 250);
+            doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+            doc.setFontSize(6.5);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(20, 30, 60);
+            doc.text(label, cx + 3, 41.5);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(10, 10, 10);
+            doc.text(val, cx + 3, 50);
             cx += 70;
         });
-
 
         // Tabla con tema claro de alto contraste
         doc.autoTable({
