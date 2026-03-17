@@ -299,33 +299,41 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.text(`calculadoraudis.com  |  Banxico ${UDI_FECHA}: $${fmtMXN(UDI_VALOR,6)}  |  ${new Date().toLocaleDateString('es-MX')}`, 14, 21);
         doc.text(`Inflación: ${S.inflacion}%  |  Plazo: ${S.anios} años`, 14, 28);
 
-        // KPI cards — colores explícitos con hex strings
-        const kpiCards = [
-            { label:'VALOR FUTURO TOTAL',  val:`$${fmtMXN(S.vfFinal)}`,  color: '#0d47a1' },
-            { label:'TOTAL APORTADO (VP)', val:`$${fmtMXN(S.totalVP)}`,  color: '#111111' },
-            { label:'UDIS ACUMULADAS',     val:fmtNum(S.udisTotal,2),    color: '#111111' },
-            { label:'RENDIMIENTO NOMINAL', val:`${fmtNum(S.rendimiento,1)}%`, color: '#00695c' },
-        ];
         let cx = 14;
-        kpiCards.forEach(({ label, val, color }) => {
-            // Fondo de la tarjeta (azul super pálido casi gris)
-            doc.setFillColor('#f0f4f8');
-            doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
-            
-            // Label superior
-            doc.setFontSize(6.5);
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor('#475569'); // slate-600
-            doc.text(label, cx + 3, 41.5);
-            
-            // Valor grande
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor(color);
-            doc.text(val, cx + 3, 50);
-            
-            cx += 70;
-        });
+        
+        // Forma súper básica explícita línea por línea para bypasear bugs de jsPDF
+        doc.setFillColor(240, 244, 250);
+        
+        // 1
+        doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+        doc.setFontSize(6.5); doc.setFont('helvetica', 'bold');
+        doc.setTextColor(50, 60, 80); doc.text('VALOR FUTURO TOTAL', cx + 3, 41.5);
+        doc.setFontSize(12);
+        doc.setTextColor(15, 80, 200); doc.text(`$${fmtMXN(S.vfFinal)}`, cx + 3, 50);
+        cx += 70;
+        
+        // 2
+        doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+        doc.setFontSize(6.5); doc.setFont('helvetica', 'bold');
+        doc.setTextColor(50, 60, 80); doc.text('TOTAL APORTADO (VP)', cx + 3, 41.5);
+        doc.setFontSize(12);
+        doc.setTextColor(20, 20, 20); doc.text(`$${fmtMXN(S.totalVP)}`, cx + 3, 50);
+        cx += 70;
+        
+        // 3
+        doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+        doc.setFontSize(6.5); doc.setFont('helvetica', 'bold');
+        doc.setTextColor(50, 60, 80); doc.text('UDIS ACUMULADAS', cx + 3, 41.5);
+        doc.setFontSize(12);
+        doc.setTextColor(20, 20, 20); doc.text(fmtNum(S.udisTotal, 2), cx + 3, 50);
+        cx += 70;
+        
+        // 4
+        doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+        doc.setFontSize(6.5); doc.setFont('helvetica', 'bold');
+        doc.setTextColor(50, 60, 80); doc.text('RENDIMIENTO NOMINAL', cx + 3, 41.5);
+        doc.setFontSize(12);
+        doc.setTextColor(10, 130, 70); doc.text(`${fmtNum(S.rendimiento, 1)}%`, cx + 3, 50);
 
         // Tabla con tema claro de alto contraste
         doc.autoTable({
