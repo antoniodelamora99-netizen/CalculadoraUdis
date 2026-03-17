@@ -299,25 +299,31 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.text(`calculadoraudis.com  |  Banxico ${UDI_FECHA}: $${fmtMXN(UDI_VALOR,6)}  |  ${new Date().toLocaleDateString('es-MX')}`, 14, 21);
         doc.text(`Inflación: ${S.inflacion}%  |  Plazo: ${S.anios} años`, 14, 28);
 
-        // KPI cards — colores explícitos para máxima compatibilidad con jsPDF
+        // KPI cards — colores explícitos con hex strings
         const kpiCards = [
-            { label:'VALOR FUTURO TOTAL',  val:`$${fmtMXN(S.vfFinal)}` },
-            { label:'TOTAL APORTADO (VP)', val:`$${fmtMXN(S.totalVP)}` },
-            { label:'UDIS ACUMULADAS',     val:fmtNum(S.udisTotal,2) },
-            { label:'RENDIMIENTO NOMINAL', val:`${fmtNum(S.rendimiento,1)}%` },
+            { label:'VALOR FUTURO TOTAL',  val:`$${fmtMXN(S.vfFinal)}`,  color: '#0d47a1' },
+            { label:'TOTAL APORTADO (VP)', val:`$${fmtMXN(S.totalVP)}`,  color: '#111111' },
+            { label:'UDIS ACUMULADAS',     val:fmtNum(S.udisTotal,2),    color: '#111111' },
+            { label:'RENDIMIENTO NOMINAL', val:`${fmtNum(S.rendimiento,1)}%`, color: '#00695c' },
         ];
         let cx = 14;
-        kpiCards.forEach(({ label, val }) => {
-            doc.setFillColor(210, 225, 250);
+        kpiCards.forEach(({ label, val, color }) => {
+            // Fondo de la tarjeta (azul super pálido casi gris)
+            doc.setFillColor('#f0f4f8');
             doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+            
+            // Label superior
             doc.setFontSize(6.5);
             doc.setFont('helvetica', 'bold');
-            doc.setTextColor(20, 30, 60);
+            doc.setTextColor('#475569'); // slate-600
             doc.text(label, cx + 3, 41.5);
-            doc.setFontSize(11);
+            
+            // Valor grande
+            doc.setFontSize(12);
             doc.setFont('helvetica', 'bold');
-            doc.setTextColor(10, 10, 10);
+            doc.setTextColor(color);
             doc.text(val, cx + 3, 50);
+            
             cx += 70;
         });
 
