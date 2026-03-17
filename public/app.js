@@ -301,20 +301,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // KPI cards sobre fondo claro con texto oscuro
         const cards = [
-            ['VALOR FUTURO TOTAL',  `$${fmtMXN(S.vfFinal)}`,      [15,80,200]],
-            ['TOTAL APORTADO (VP)', `$${fmtMXN(S.totalVP)}`,      [30,30,30]],
-            ['UDIS ACUMULADAS',     fmtNum(S.udisTotal,2),         [30,30,30]],
-            ['RENDIMIENTO NOMINAL', `${fmtNum(S.rendimiento,1)}%`, [16,140,80]],
+            ['VALOR FUTURO TOTAL',  `$${fmtMXN(S.vfFinal)}`,      [10,60,180]],
+            ['TOTAL APORTADO (VP)', `$${fmtMXN(S.totalVP)}`,      [20,20,20]],
+            ['UDIS ACUMULADAS',     fmtNum(S.udisTotal,2),         [20,20,20]],
+            ['RENDIMIENTO NOMINAL', `${fmtNum(S.rendimiento,1)}%`, [10,120,60]],
         ];
         let cx = 14;
         cards.forEach(([label, val, color]) => {
-            doc.setFillColor(237,242,252); doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
-            doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(80,100,140);
+            doc.setFillColor(220,230,248); doc.roundedRect(cx, 35, 66, 18, 2, 2, 'F');
+            doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(30,40,70);
             doc.text(label, cx+3, 41.5);
             doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(...color);
             doc.text(val, cx+3, 50);
             cx += 70;
         });
+
 
         // Tabla con tema claro de alto contraste
         doc.autoTable({
