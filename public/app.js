@@ -175,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let udisAcum = 0, totalVP = 0;
 
         for (let a = 1; a <= anios; a++) {
-            const udiAnio = UDI_VALOR * Math.pow(1 + inflacion, a);
+            // Año 1 representa el día de hoy (a - 1 = 0 años de inflación)
+            const udiAnio = UDI_VALOR * Math.pow(1 + inflacion, a - 1);
             const udisAno = aportaciones[a - 1];
             const aportVP = udisAno * UDI_VALOR;
             const aportVF = udisAno * udiAnio;
