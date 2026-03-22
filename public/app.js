@@ -396,4 +396,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Iniciar ────────────────────────────────────
     fetchUDI();
+
+    // ── LEGION BANNER — Tabs ───────────────────────
+    const legionTabs   = document.querySelectorAll('.legion-tab');
+    const legionPanels = { asesor: document.getElementById('panel-asesor'), promotor: document.getElementById('panel-promotor') };
+
+    legionTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            // Update tab state
+            legionTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            // Swap panels with fade
+            Object.entries(legionPanels).forEach(([key, panel]) => {
+                if (key === target) {
+                    panel.classList.remove('hidden');
+                    panel.style.opacity = '0';
+                    requestAnimationFrame(() => {
+                        panel.style.transition = 'opacity 0.22s ease';
+                        panel.style.opacity = '1';
+                    });
+                } else {
+                    panel.classList.add('hidden');
+                    panel.style.opacity = '';
+                }
+            });
+        });
+    });
+
+    // ── LEGION BANNER — Sticky dismiss ─────────────
+    const STICKY_KEY  = 'legion_sticky_dismissed';
+    const stickyEl    = document.getElementById('legion-sticky');
+    const closeBtn    = document.getElementById('legion-sticky-close');
+
+    function showSticky() {
+        document.body.classList.add('legion-sticky-active');
+        stickyEl.classList.remove('hidden');
+    }
+
+    function dismissSticky() {
+        stickyEl.classList.add('hidden');
+        document.body.classList.remove('legion-sticky-active');
+        try { localStorage.setItem(STICKY_KEY, '1'); } catch {}
+    }
+
+    // Check if already dismissed in this session
+    try {
+        if (!localStorage.getItem(STICKY_KEY)) showSticky();
+    } catch {
+        showSticky(); // If localStorage unavailable, show anyway
+    }
+
+    closeBtn.addEventListener('click', dismissSticky);
 });

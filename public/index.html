@@ -25,7 +25,30 @@
 <div class="blob blob-teal"></div>
 <div class="blob blob-purple"></div>
 
-<div class="app-wrapper">
+<!-- ══ LEGION STICKY BANNER ══ -->
+<div id="legion-sticky" class="legion-sticky">
+    <div class="legion-sticky-inner">
+        <div class="legion-sticky-brand">
+            <div class="legion-sticky-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm14 3.5a3.5 3.5 0 1 0 .001 7.001A3.5 3.5 0 0 0 17 17.5z"/>
+                </svg>
+            </div>
+            <div class="legion-sticky-text">
+                <span class="legion-sticky-title">LEGION — Un sistema para toda tu operación</span>
+                <span class="legion-sticky-sub">Asesores, promotores y equipo — todo en un solo lugar</span>
+            </div>
+        </div>
+        <div class="legion-sticky-actions">
+            <a href="https://crm-gamo.vercel.app" target="_blank" rel="noopener noreferrer" class="legion-sticky-btn">
+                Ver demo →
+            </a>
+            <button id="legion-sticky-close" class="legion-sticky-close" aria-label="Cerrar">×</button>
+        </div>
+    </div>
+</div>
+
+<div class="app-wrapper" id="app-wrapper">
 
     <!-- ══ HEADER ══ -->
     <header class="site-header">
@@ -224,18 +247,105 @@
         </div>
     </section>
 
-    <!-- ══ CTA ══ -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <div class="cta-text">
-                <div class="cta-badge">🚀 Para Asesores y Promotorias</div>
-                <h3>¿Usas esta herramienta en tu trabajo?</h3>
-                <p>Forma parte de un sistema profesional diseñado para asesores de seguros y promotorias: simulaciones automáticas, seguimiento de clientes y gestión de cartera en un solo lugar.</p>
+    <!-- ══ LEGION BANNER ══ -->
+    <section class="legion-banner" id="legion-banner">
+        <!-- Top accent bar -->
+        <div class="legion-top-bar"></div>
+
+        <!-- Tab switcher -->
+        <div class="legion-tabs">
+            <button class="legion-tab active" id="tab-asesor" data-tab="asesor">Asesor</button>
+            <button class="legion-tab" id="tab-promotor" data-tab="promotor">Promotor</button>
+        </div>
+
+        <!-- ── Panel Asesor ── -->
+        <div class="legion-panel" id="panel-asesor">
+            <div class="legion-panel-inner">
+                <div class="legion-copy">
+                    <span class="legion-eyebrow">Para asesores de seguros</span>
+                    <h3 class="legion-headline">
+                        Tu negocio en un solo lugar.<br>
+                        <span class="legion-headline-accent">Deja de operar disperso.</span>
+                    </h3>
+                    <p class="legion-subtext">Clientes, pólizas, cobranza, agenda y actividad medida — todo conectado. Sin WhatsApp, sin Excel, sin portales separados. Un solo sistema donde vive toda tu operación.</p>
+
+                    <ul class="legion-pain-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7.25" stroke="#E24B4A" stroke-width="1"/><line x1="5" y1="5" x2="11" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/></svg>
+                            WhatsApp, Excel, portales de aseguradoras por separado
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7.25" stroke="#E24B4A" stroke-width="1"/><line x1="5" y1="5" x2="11" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/></svg>
+                            Clientes que se pierden por falta de seguimiento
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7.25" stroke="#E24B4A" stroke-width="1"/><line x1="5" y1="5" x2="11" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/></svg>
+                            Renovaciones que se van sin que te enteres
+                        </li>
+                    </ul>
+
+                    <div class="legion-chips">
+                        <span class="legion-chip">Clientes y pólizas</span>
+                        <span class="legion-chip">Cobranza y renovaciones</span>
+                        <span class="legion-chip">25 Puntos</span>
+                        <span class="legion-chip">Agenda y pendientes</span>
+                    </div>
+                </div>
+
+                <div class="legion-ctas">
+                    <a href="https://crm-gamo.vercel.app" target="_blank" rel="noopener noreferrer" class="legion-cta-primary">
+                        Ver cómo funciona →
+                    </a>
+                    <a href="https://crm-gamo.vercel.app" target="_blank" rel="noopener noreferrer" class="legion-cta-secondary">
+                        Conocer LEGION
+                    </a>
+                </div>
             </div>
-            <a href="https://crm-gamo.vercel.app" target="_blank" rel="noopener" class="cta-btn">
-                Conocer el sistema para asesores
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+        </div>
+
+        <!-- ── Panel Promotor ── -->
+        <div class="legion-panel hidden" id="panel-promotor">
+            <div class="legion-panel-inner">
+                <div class="legion-copy">
+                    <span class="legion-eyebrow">Para promotores de seguros</span>
+                    <h3 class="legion-headline">
+                        Todo tu equipo.<br>
+                        <span class="legion-headline-accent">Un solo sistema.</span>
+                    </h3>
+                    <p class="legion-subtext">Promotores, gerentes, asesores, reclutadores y asistentes — todos dentro de la misma plataforma. Sin herramientas inconexas. Sin información dispersa. Sin operación improvisada.</p>
+
+                    <ul class="legion-pain-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7.25" stroke="#E24B4A" stroke-width="1"/><line x1="5" y1="5" x2="11" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/></svg>
+                            Operación repartida entre Notion, Excel, WhatsApp y portales
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7.25" stroke="#E24B4A" stroke-width="1"/><line x1="5" y1="5" x2="11" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/></svg>
+                            Sin visibilidad real del desempeño de tu equipo
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7.25" stroke="#E24B4A" stroke-width="1"/><line x1="5" y1="5" x2="11" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#E24B4A" stroke-width="1.25" stroke-linecap="round"/></svg>
+                            Reclutamiento y cartera que no escalan con la operación
+                        </li>
+                    </ul>
+
+                    <div class="legion-chips">
+                        <span class="legion-chip">Visibilidad por rol</span>
+                        <span class="legion-chip">Reclutamiento</span>
+                        <span class="legion-chip">Métricas del equipo</span>
+                        <span class="legion-chip">Todo conectado</span>
+                    </div>
+                </div>
+
+                <div class="legion-ctas">
+                    <a href="https://crm-gamo.vercel.app" target="_blank" rel="noopener noreferrer" class="legion-cta-primary">
+                        Solicitar demo →
+                    </a>
+                    <a href="https://crm-gamo.vercel.app" target="_blank" rel="noopener noreferrer" class="legion-cta-secondary">
+                        Conocer LEGION
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
