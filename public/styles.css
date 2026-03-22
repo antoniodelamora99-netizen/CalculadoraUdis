@@ -124,10 +124,64 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
 .swap-btn svg { width:18px;height:18px; }
 .swap-btn:hover { background:rgba(59,130,246,.3);transform:rotate(180deg); }
 
-/* ── Aport toggle ── */
-.aport-toggle { display:flex;gap:2rem;flex-wrap:wrap; }
-.toggle-opt { display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:500;color:var(--text-200);cursor:pointer; }
-.toggle-opt input[type="radio"] { accent-color:var(--accent-blue);width:16px;height:16px;cursor:pointer; }
+/* ── Aport toggle — segmented pill control ── */
+.aport-toggle {
+    display: inline-flex;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+}
+
+/* Hide the native radio — keep it in DOM for JS */
+.toggle-opt input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.toggle-opt {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--text-300);
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s, color .2s, box-shadow .2s;
+    white-space: nowrap;
+}
+
+.toggle-opt svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    transition: stroke .2s;
+}
+
+/* Active state: when the hidden radio is checked */
+.toggle-opt:has(input:checked) {
+    background: var(--accent-blue);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(59,130,246,.35);
+}
+
+.toggle-opt:not(:has(input:checked)):hover {
+    background: rgba(255,255,255,.06);
+    color: var(--text-200);
+}
+
+/* Mobile: full-width, larger tap target */
+@media (max-width:700px) {
+    .aport-toggle { width: 100%; }
+    .toggle-opt   { flex: 1; justify-content: center; padding: 11px 12px; font-size: .82rem; }
+}
 
 /* ── Manual input table ── */
 .hint-text { font-size:.82rem;color:var(--text-300); }

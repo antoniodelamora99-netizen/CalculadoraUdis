@@ -17,7 +17,7 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"
             integrity="sha384-QCIdq2UMVEoSRhR3ZWZwdz2/pivLowr+eokFMdYyukq7qI26VYRxFa4Nl6FKetmL"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
     <!-- Vercel Web Analytics -->
     <script type="module">
       import { inject } from 'https://esm.sh/@vercel/analytics';
@@ -208,13 +208,17 @@
             </div>
         </div>
 
-        <!-- Toggle: Fija vs. Manual -->
-        <div class="aport-toggle">
-            <label class="toggle-opt">
-                <input type="radio" name="aport-tipo" value="fija" checked id="aport-fija"> Aportación fija
+        <!-- Toggle: Fija vs. Manual — segmented pill control -->
+        <div class="aport-toggle" role="group" aria-label="Tipo de aportación">
+            <label class="toggle-opt" for="aport-fija">
+                <input type="radio" name="aport-tipo" value="fija" checked id="aport-fija">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg>
+                Aportación fija
             </label>
-            <label class="toggle-opt">
-                <input type="radio" name="aport-tipo" value="manual" id="aport-manual"> Editar por año en la tabla
+            <label class="toggle-opt" for="aport-manual">
+                <input type="radio" name="aport-tipo" value="manual" id="aport-manual">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5 7h6M5 10h4"/></svg>
+                Editar por año
             </label>
         </div>
 
@@ -409,6 +413,6 @@
     <span id="toast-msg"></span>
 </div>
 
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>
