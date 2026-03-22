@@ -339,6 +339,15 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
     .kpi-value { font-size: 1.15rem; }
     .kpi-label { font-size: .65rem; letter-spacing: .3px; }
     .kpi-sub   { font-size: .68rem; }
+
+    /* ── Result summary: 2×2 compact grid on mobile ── */
+    .result-summary {
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+    }
+    .rs-card { padding: .75rem 1rem; }
+    .rs-value { font-size: 1.1rem; }
+    .rs-label { font-size: .65rem; }
 }
 
 
