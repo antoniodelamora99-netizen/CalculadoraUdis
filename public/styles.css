@@ -164,8 +164,27 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
     border-radius:var(--radius-md);padding:1rem 1.25rem;font-size:.88rem;color:var(--text-200);line-height:1.6; }
 
 /* ── Result table ── */
-.table-wrapper { overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--glass-border); }
-.result-table { width:100%;border-collapse:collapse;font-size:.84rem;min-width:600px; }
+/* ── Scroll hint (mobile only) ── */
+.table-scroll-hint {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: .75rem;
+    color: var(--text-300);
+    margin-bottom: .5rem;
+    padding: 0 2px;
+}
+.table-scroll-hint svg { flex-shrink:0; }
+
+/* ── Result table wrapper ── */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    -webkit-overflow-scrolling: touch;
+}
+
+.result-table { width:100%;border-collapse:collapse;font-size:.84rem;min-width:560px; }
 .result-table thead tr { background:rgba(255,255,255,.04);border-bottom:1px solid var(--glass-border); }
 .result-table th { padding:11px 14px;text-align:right;font-weight:600;font-size:.72rem;
     text-transform:uppercase;letter-spacing:.5px;color:var(--text-300);white-space:nowrap; }
@@ -178,6 +197,48 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
 .col-green { color:var(--accent-teal) !important;font-weight:700; }
 .col-blue  { color:var(--accent-blue) !important; }
 .col-amber { color:var(--accent-amber) !important; }
+
+/* ── Inline editable input ── */
+.inline-input {
+    width: 90px;
+    background: rgba(59,130,246,.12);
+    border: 1px solid rgba(59,130,246,.3);
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: #f0f4ff;
+    font-size: .85rem;
+    font-family: inherit;
+    text-align: right;
+    outline: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    display: block;
+    box-sizing: border-box;
+}
+.inline-input::-webkit-outer-spin-button,
+.inline-input::-webkit-inner-spin-button { -webkit-appearance:none;appearance:none; }
+.inline-input:focus { border-color:var(--accent-blue);background:rgba(59,130,246,.2); }
+
+/* column that holds the editable input — give it a fixed width */
+.result-table .td-editable { width: 110px; padding: 6px 10px; }
+
+/* ── Mobile — secondary columns hidden to reduce scroll ── */
+@media (max-width: 700px) {
+    .table-scroll-hint { display: flex; }
+
+    /* Hide less-critical columns: Aportación VP, UDIS Acumuladas */
+    .result-table .col-hide-mobile { display: none; }
+
+    /* Compact padding on mobile */
+    .result-table th,
+    .result-table td { padding: 9px 10px; font-size: .78rem; }
+
+    /* Inline input adapts to mobile */
+    .inline-input { width: 78px; font-size: .82rem; padding: 7px 6px; }
+    .result-table .td-editable { width: 90px; padding: 5px 8px; }
+}
+
+
 
 /* ── Export ── */
 .export-bar { display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding-top:.25rem; }

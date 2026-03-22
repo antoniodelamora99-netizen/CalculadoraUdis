@@ -17,7 +17,7 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"
             integrity="sha384-QCIdq2UMVEoSRhR3ZWZwdz2/pivLowr+eokFMdYyukq7qI26VYRxFa4Nl6FKetmL"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
     <!-- Vercel Web Analytics -->
     <script type="module">
       import { inject } from 'https://esm.sh/@vercel/analytics';
@@ -231,6 +231,13 @@
             <div class="interpretation-box" id="interpretation-box"></div>
 
             <!-- Tabla año por año -->
+            <!-- Mobile scroll hint — hidden on desktop via CSS -->
+            <div class="table-scroll-hint">
+                <svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M4 10h12M9 5l-5 5 5 5M11 5l5 5-5 5"/>
+                </svg>
+                Desliza para ver todas las columnas
+            </div>
             <div class="table-wrapper">
                 <table class="result-table">
                     <thead id="proj-thead"></thead>
@@ -402,6 +409,6 @@
     <span id="toast-msg"></span>
 </div>
 
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

@@ -221,25 +221,25 @@ document.addEventListener('DOMContentLoaded', () => {
         $('proj-thead').innerHTML = `<tr>
             <th>Año</th>
             <th>UDI Proyectada</th>
-            <th>UDIs a Aportar${isManual ? ' ✏️' : ''}</th>
-            <th>Aportación VP</th>
+            <th>${isManual ? '✏️ ' : ''}UDIs a Aportar</th>
+            <th class="col-hide-mobile">Aportación VP</th>
             <th>Aportación VF</th>
-            <th>UDIS Acumuladas</th>
+            <th class="col-hide-mobile">UDIS Acumuladas</th>
             <th>Total VP</th>
             <th>Total VF</th>
         </tr>`;
 
         $('proj-tbody').innerHTML = rows.map(r => {
             const udisCell = isManual
-                ? `<td><input type="number" class="inline-input" data-anio="${r.anio}" value="${r.udisAno}" min="0" step="any" style="width:90px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);border-radius:6px;padding:4px 8px;color:#f0f4ff;font-size:.85rem;font-family:inherit;text-align:right;outline:none;-moz-appearance:textfield;"></td>`
+                ? `<td class="td-editable"><input type="number" class="inline-input" data-anio="${r.anio}" value="${r.udisAno}" min="0" step="any"></td>`
                 : `<td>${fmtNum(r.udisAno, 2)}</td>`;
             return `<tr>
                 <td>${r.anio}</td>
                 <td>$${fmtMXN(r.udiAnio, 4)}</td>
                 ${udisCell}
-                <td class="col-blue">$${fmtMXN(r.aportVP)}</td>
+                <td class="col-blue col-hide-mobile">$${fmtMXN(r.aportVP)}</td>
                 <td>$${fmtMXN(r.aportVF)}</td>
-                <td>${fmtNum(r.udisAcum, 2)}</td>
+                <td class="col-hide-mobile">${fmtNum(r.udisAcum, 2)}</td>
                 <td class="col-blue">$${fmtMXN(r.totalVP)}</td>
                 <td class="col-green">$${fmtMXN(r.totalVF)}</td>
             </tr>`;
@@ -248,8 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Escuchar cambios en los inputs inline
         if (isManual) {
             $('proj-tbody').querySelectorAll('.inline-input').forEach(input => {
-                // Quitar spinner nativo en Chrome
-                input.style.webkitAppearance = 'none';
                 input.addEventListener('change', () => {
                     const anio = parseInt(input.dataset.anio);
                     manualValues[anio] = parseFloat(input.value) || 0;
