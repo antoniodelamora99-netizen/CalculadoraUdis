@@ -397,6 +397,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Iniciar ────────────────────────────────────
     fetchUDI();
 
+    // ── LEGION BANNER — Mouse spotlight ────────────
+    const bannerEl = document.getElementById('legion-banner');
+    if (bannerEl) {
+        let rafId = null;
+        bannerEl.addEventListener('mousemove', e => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                const r = bannerEl.getBoundingClientRect();
+                const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%';
+                const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%';
+                bannerEl.style.setProperty('--mx', x);
+                bannerEl.style.setProperty('--my', y);
+            });
+        });
+        bannerEl.addEventListener('mouseleave', () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            // Smoothly return to center — achieved by CSS transition on ::before
+            bannerEl.style.setProperty('--mx', '50%');
+            bannerEl.style.setProperty('--my', '50%');
+        });
+    }
+
     // ── LEGION BANNER — Tabs ───────────────────────
     const legionTabs   = document.querySelectorAll('.legion-tab');
     const legionPanels = { asesor: document.getElementById('panel-asesor'), promotor: document.getElementById('panel-promotor') };

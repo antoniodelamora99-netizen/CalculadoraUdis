@@ -275,20 +275,64 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
 }
 
 /* ── Main Banner Card ── */
+@keyframes legionGradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .legion-banner {
     position: relative;
-    background: rgba(83,74,183,0.07);
+    background: linear-gradient(135deg,
+        rgba(83,74,183,.13) 0%,
+        rgba(59,130,246,.07) 40%,
+        rgba(16,185,129,.06) 70%,
+        rgba(83,74,183,.11) 100%
+    );
+    background-size: 300% 300%;
+    animation: legionGradientShift 9s ease infinite;
     border: 0.5px solid var(--legion-card-border);
     border-radius: 12px;
     backdrop-filter: var(--blur);
     -webkit-backdrop-filter: var(--blur);
     overflow: hidden;
     padding: 0 1.75rem 1.75rem;
+    transition: border-color 0.3s;
+}
+
+.legion-banner:hover {
+    border-color: rgba(175,169,236,0.35);
+}
+
+/* Mouse-reactive spotlight */
+.legion-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        500px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(127,119,221,.13) 0%,
+        transparent 65%
+    );
+    pointer-events: none;
+    z-index: 0;
+    transition: background 0.08s;
+}
+
+/* Ensure content sits above the pseudo-element */
+.legion-top-bar, .legion-header, .legion-tabs, .legion-panel { position: relative; z-index: 1; }
+
+@keyframes legionBarShimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
 }
 
 .legion-top-bar {
-    height: 3px;
-    background: linear-gradient(90deg, var(--legion-primary), var(--legion-mid));
+    height: 5px;
+    background: linear-gradient(90deg, #534AB7 0%, #7F77DD 25%, #3b82f6 50%, #10b981 70%, #534AB7 100%);
+    background-size: 200%;
+    animation: legionBarShimmer 3s linear infinite;
     margin: 0 -1.75rem 1.5rem;
 }
 
@@ -352,6 +396,33 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
     gap: 0.9rem;
 }
 
+/* ── Wordmark ── */
+.legion-header {
+    margin-bottom: 1.1rem;
+}
+
+.legion-wordmark {
+    display: inline-block;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    background: linear-gradient(120deg, #7F77DD 0%, #b4afff 35%, #534AB7 65%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Fallback for browsers that don't support gradient text */
+    color: var(--legion-mid);
+    user-select: none;
+}
+
+.legion-descriptor {
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--text-300);
+    letter-spacing: 0.01em;
+}
+
 /* ── Typography ── */
 .legion-eyebrow {
     font-size: 11px;
@@ -382,6 +453,13 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
     color: var(--text-200);
     max-width: 520px;
     margin: 0;
+}
+
+/* Emphasis inside subtext */
+.legion-em {
+    font-weight: 600;
+    color: var(--text-100);
+    font-style: normal;
 }
 
 /* ── Pain list ── */
@@ -437,26 +515,32 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
     min-width: 180px;
 }
 
+@keyframes ctaGlow {
+    0%, 100% { box-shadow: 0 4px 16px rgba(83,74,183,.35); }
+    50%       { box-shadow: 0 4px 28px rgba(83,74,183,.65), 0 0 0 4px rgba(83,74,183,.12); }
+}
+
 .legion-cta-primary {
     display: block;
     text-align: center;
-    padding: 0.7rem 1.4rem;
+    padding: 0.75rem 1.6rem;
     background: var(--legion-primary);
     color: #fff;
     font-family: var(--font);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(83,74,183,0.35);
-    transition: all 0.2s;
+    animation: ctaGlow 2.5s ease-in-out infinite;
+    transition: background 0.2s, transform 0.2s;
     white-space: nowrap;
 }
 
 .legion-cta-primary:hover {
     background: var(--legion-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(83,74,183,0.45);
+    animation: none;
+    box-shadow: 0 8px 24px rgba(83,74,183,.55);
 }
 
 .legion-cta-secondary {
