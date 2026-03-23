@@ -127,6 +127,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;appear
 /* ── Aport toggle — segmented pill control ── */
 .aport-toggle {
     display: inline-flex;
+    width: fit-content;
     background: rgba(0,0,0,0.25);
     border: 1px solid var(--glass-border);
     border-radius: 999px;
