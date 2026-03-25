@@ -164,7 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const inflacion  = parseFloat($('cfg-inflacion').value) / 100 || 0.04;
         const anios      = parseInt($('cfg-anios').value) || 10;
-        const udisBase   = parseFloat($('cfg-udis').value) || 1000;
+        const udisRaw    = $('cfg-udis').value;
+        const udisBase   = udisRaw === '' || udisRaw === null ? 1000 : parseFloat(udisRaw);
         const periodo    = parseInt($('cfg-periodicidad').value) || 1;
         const isManual   = $('aport-manual').checked;
         const aportAnual = udisBase * periodo;
@@ -275,9 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
         runProjection();
     });
 
-    // Actualizar KPIs en tiempo real al cambiar config
+    // Recalcular proyección en tiempo real al cambiar cualquier config
     [$('cfg-inflacion'), $('cfg-anios'), $('cfg-udis'), $('cfg-periodicidad')].forEach(el => {
-        el.addEventListener('input', updateKPIs);
+        el.addEventListener('input', () => {
+            if (!$('aport-manual').checked) manualValues = {};
+            runProjection();
+        });
     });
 
     // ── EXPORTACIÓN PDF ────────────────────────────
