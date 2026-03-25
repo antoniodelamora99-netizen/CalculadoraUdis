@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const inflacion  = parseFloat($('cfg-inflacion').value) / 100 || 0.04;
         const anios      = parseInt($('cfg-anios').value) || 10;
         const udisRaw    = $('cfg-udis').value;
-        const udisBase   = udisRaw === '' || udisRaw === null ? 1000 : parseFloat(udisRaw);
+        const udisBase   = (udisRaw === '' || udisRaw === null) ? 1000 : (isNaN(parseFloat(udisRaw)) ? 1000 : parseFloat(udisRaw));
         const periodo    = parseInt($('cfg-periodicidad').value) || 1;
         const isManual   = $('aport-manual').checked;
         const aportAnual = udisBase * periodo;
@@ -270,17 +270,15 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    $('btn-calcular').addEventListener('click', () => {
-        // Limpiar valores manuales si está en modo fijo
-        if (!$('aport-manual').checked) manualValues = {};
-        runProjection();
-    });
+    // El botón de calcular fue eliminado — la proyección se actualiza en tiempo real
 
     // Recalcular proyección en tiempo real al cambiar cualquier config
     [$('cfg-inflacion'), $('cfg-anios'), $('cfg-udis'), $('cfg-periodicidad')].forEach(el => {
-        el.addEventListener('input', () => {
-            if (!$('aport-manual').checked) manualValues = {};
-            runProjection();
+        ['input', 'change'].forEach(evt => {
+            el.addEventListener(evt, () => {
+                if (!$('aport-manual').checked) manualValues = {};
+                runProjection();
+            });
         });
     });
 
