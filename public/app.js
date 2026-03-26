@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(110,120,140);
         doc.text('Estimaciones con fines informativos. No constituyen asesoría financiera formal.', 14, fy);
         doc.setTextColor(15,80,200);
-        doc.textWithLink('Sistema para asesores y promotorias: crm-gamo.vercel.app', 14, fy+5, { url:'https://crm-gamo.vercel.app' });
+        doc.textWithLink('Sistema para asesores y promotorias: legionerp.com', 14, fy+5, { url:'https://legionerp.com' });
         doc.save(`proyeccion-udis-${new Date().toISOString().split('T')[0]}.pdf`);
     });
 
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             [],
             D.headers, ...D.rows, [],
             ['Estimaciones con fines informativos.'],
-            ['Sistema para asesores: https://crm-gamo.vercel.app'],
+            ['Sistema para asesores: https://legionerp.com'],
         ];
         const ws = XLSX.utils.aoa_to_sheet(wsData);
         ws['!cols'] = D.headers.map(()=>({ wch:18 }));
